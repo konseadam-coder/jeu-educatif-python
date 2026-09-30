@@ -7,9 +7,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import List, Optional, Union
 
-# ============================================================
+
 # Initialisation
-# ============================================================
 pygame.init()
 pygame.mixer.init()
 
@@ -20,9 +19,7 @@ pygame.display.set_caption("Jeu Educatif")
 clock = pygame.time.Clock()
 FPS = 60
 
-# ============================================================
 # Couleurs
-# ============================================================
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BG_LIGHT = (245, 247, 250)
@@ -59,9 +56,7 @@ CONFETTI_COLORS = [
     (244, 114, 182), (96, 165, 250), (167, 139, 250),
 ]
 
-# ============================================================
 # Polices
-# ============================================================
 font_huge = pygame.font.SysFont("Comic Sans MS", 65)
 font_big = pygame.font.SysFont("Comic Sans MS", 50)
 font_medium = pygame.font.SysFont("Arial", 30)
@@ -69,9 +64,7 @@ font = pygame.font.SysFont("Arial", 26)
 font_small = pygame.font.SysFont("Arial", 20)
 font_tiny = pygame.font.SysFont("Arial", 15)
 
-# ============================================================
 # Sons (chiffres et lettres, joues comme renforcement pedagogique)
-# ============================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SOUNDS_DIR = os.path.join(BASE_DIR, "Chiffreslettres2")
 
@@ -106,9 +99,7 @@ def jouer_son_si_disponible(sounds, cle):
         son.play()
 
 
-# ============================================================
 # Outils d'interface communs
-# ============================================================
 def draw_back_button():
     back_rect = pygame.Rect(10, 10, 110, 45)
     pygame.draw.rect(screen, ORANGE, back_rect, border_radius=12)
@@ -186,9 +177,8 @@ def draw_question_text(text, rect):
         y += surf.get_height() + 4
 
 
-# ============================================================
+
 # Icones dessinees en vectoriel (pas d'emoji : rendu fiable partout)
-# ============================================================
 def _new_icon_surface(size):
     surf = pygame.Surface((size, size), pygame.SRCALPHA)
     return surf
@@ -344,10 +334,7 @@ def get_icon(key, size):
         _icon_cache[cache_key] = drawer(size)
     return _icon_cache[cache_key]
 
-
-# ============================================================
 # Effet confettis (equivalent de canvas-confetti a la reussite)
-# ============================================================
 class ConfettiParticle:
     def __init__(self, x, y):
         self.x = x
@@ -397,10 +384,6 @@ class ConfettiEffect:
             else:
                 p.draw(surface)
 
-
-# ============================================================
-# Modele de question + moteurs de jeu (POO : classe abstraite + heritage)
-# ============================================================
 @dataclass
 class Question:
     text: str
@@ -599,9 +582,6 @@ class HistoireGameEngine(GameEngine):
         return Question(text=q["question"], answer=answer, options=list(q["options"]))
 
 
-# ============================================================
-# Ecran generique de jeu (utilise par les 4 matieres)
-# ============================================================
 def run_quiz_screen(engine, title, theme_color, theme_light):
     confetti = ConfettiEffect()
     question = engine.generate_question()
@@ -696,9 +676,7 @@ def run_quiz_screen(engine, title, theme_color, theme_light):
                         break
 
 
-# ============================================================
-# Selection de l'age (3 tranches, comme le modele de reference)
-# ============================================================
+
 AGE_GROUPS = [
     {"range": "1-3 ans", "label": "Tout-petits", "age": 2, "desc": "Decouverte des chiffres et lettres",
      "color": BLUE_TIER, "light": BLUE_TIER_LIGHT},
@@ -864,9 +842,7 @@ def lancer_jeu(key, age, sounds):
         run_quiz_screen(engine, "Histoire du Mali", ORANGE, (255, 231, 199))
 
 
-# ============================================================
-# Boucle principale
-# ============================================================
+
 def main():
     chiffres_sounds = charger_sons_chiffres()
     lettres_sounds = charger_sons_lettres()
