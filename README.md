@@ -1,6 +1,7 @@
 **Jeu Éducatif Interactif**
 
 I - *Description*
+
 Ce projet est un jeu vidéo éducatif développé dans le cadre d'un projet universitaire.
 L'objectif est de rendre l'apprentissage ludique pour les enfants
 en utilisant les concepts de la Programmation Orientée Objet (POO).
